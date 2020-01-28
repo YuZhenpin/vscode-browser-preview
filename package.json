@@ -15,7 +15,10 @@
   "engines": {
     "vscode": "^1.30.0"
   },
-  "extensionKind": ["ui", "workspace"],
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
   "license": "MIT",
   "version": "0.6.0",
   "main": "./build/ext-src/extension.js",
@@ -76,6 +79,54 @@
         "category": "Browser Preview",
         "command": "browser-preview.openActiveFile",
         "title": "Open Active File in Preview"
+      },
+      {
+        "command": "nodeGroups.refreshEntry",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "nodeProjects.refreshEntry",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "nodeProjects.buildEntry",
+        "title": "Build",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "nodeRecords.refreshEntry",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "nodeRecords.stopEntry",
+        "title": "Stop",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "nodeRecords.showEntry",
+        "title": "Show",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
       }
     ],
     "debuggers": [
@@ -201,6 +252,20 @@
           "id": "targetTree",
           "name": "Targets"
         }
+      ],
+      "package-explorer": [
+        {
+          "id": "nodeGroups",
+          "name": "Groups"
+        },
+        {
+          "id": "nodeProjects",
+          "name": "Projects"
+        },
+        {
+          "id": "nodeRecords",
+          "name": "History"
+        }
       ]
     },
     "viewsContainers": {
@@ -217,6 +282,35 @@
         {
           "command": "browser-preview.openSharedBrowser",
           "when": "false"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "nodeGroups.refreshEntry",
+          "when": "view == nodeGroups",
+          "group": "navigation"
+        },
+        {
+          "command": "nodeProjects.refreshEntry",
+          "when": "view == nodeProjects",
+          "group": "navigation"
+        },
+        {
+          "command": "nodeRecords.refreshEntry",
+          "when": "view == nodeRecords",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "nodeProjects.buildEntry",
+          "when": "view == nodeProjects && viewItem == project",
+          "group": "inline"
+        },
+        {
+          "command": "nodeRecords.stopEntry",
+          "when": "view == nodeRecords && viewItem == record",
+          "group": "inline"
         }
       ]
     }

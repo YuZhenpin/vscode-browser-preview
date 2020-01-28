@@ -4,6 +4,7 @@ import * as path from 'path';
 import { RestClient } from '../restClient';
 import { ProjectModel } from '../models/projectModel';
 import { RecordModel } from '../models/recordModel';
+import { BrowserViewWindowManager } from '../../BrowserViewWindowManager';
 
 export class RecordNodeProvider implements vscode.TreeDataProvider<RecordNode> {
   private _projectModel: ProjectModel | undefined;
@@ -12,7 +13,11 @@ export class RecordNodeProvider implements vscode.TreeDataProvider<RecordNode> {
   >();
   readonly onDidChangeTreeData: vscode.Event<RecordNode | undefined> = this._onDidChangeTreeData.event;
 
-  constructor(private workspaceRoot: string, private restClient: RestClient) {
+  constructor(
+    private workspaceRoot: string | undefined,
+    private readonly restClient: RestClient,
+    private readonly windowManager: BrowserViewWindowManager
+  ) {
     vscode.commands.registerCommand('nodeRecords.showRecords', (projectModel) => this.showRecords(projectModel));
   }
 
@@ -51,7 +56,14 @@ export class RecordNodeProvider implements vscode.TreeDataProvider<RecordNode> {
   showRecord(recordModel: RecordModel) {
     vscode.window.showInformationMessage('Show record detail');
     //RecordPanel.createOrShow(recordModel.name);
-    var launch = vscode.commands.executeCommand(`browser-preview.openSharedBrowser`, 'https://www.baidu.com/');
+    //var launch = vscode.commands.executeCommand(`browser-preview.openPreview`, 'https://www.baidu.com/');
+    const lastId = this.windowManager.getLastColumnNumber();
+    const win = this.windowManager.getById(lastId.toString());
+    if (win) {
+      win.launch('htts://www.baidu.com/1');
+    } else {
+      this.windowManager.create('htts://www.baidu.com/');
+    }
   }
 }
 

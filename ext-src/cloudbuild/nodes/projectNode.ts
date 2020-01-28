@@ -13,7 +13,7 @@ export class ProjectNodeProvider implements vscode.TreeDataProvider<ProjectNode>
   >();
   readonly onDidChangeTreeData: vscode.Event<ProjectNode | undefined> = this._onDidChangeTreeData.event;
 
-  constructor(private workspaceRoot: string, private restClient: RestClient) {
+  constructor(private workspaceRoot: string | undefined, private restClient: RestClient) {
     vscode.commands.registerCommand('nodeProjects.showProjects', (groupModel) => this.showProjects(groupModel));
   }
 

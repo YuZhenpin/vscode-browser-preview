@@ -10,7 +10,7 @@ export class GroupNodeProvider implements vscode.TreeDataProvider<GroupNode> {
   >();
   readonly onDidChangeTreeData: vscode.Event<GroupNode | undefined> = this._onDidChangeTreeData.event;
 
-  constructor(private workspaceRoot: string, private restClient: RestClient) {}
+  constructor(private workspaceRoot: string | undefined, private restClient: RestClient) {}
 
   refresh(): void {
     this._onDidChangeTreeData.fire();

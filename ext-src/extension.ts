@@ -31,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
     projectNodeProvider.buildProject(projectNode)
   );
 
-  const recordNodeProvider = new RecordNodeProvider(vscode.workspace.rootPath, restClient);
+  const recordNodeProvider = new RecordNodeProvider(vscode.workspace.rootPath, restClient, windowManager);
   vscode.window.registerTreeDataProvider('nodeRecords', recordNodeProvider);
   vscode.commands.registerCommand('nodeRecords.refreshEntry', () => recordNodeProvider.refresh());
   vscode.commands.registerCommand('nodeRecords.stopEntry', (recordNode) => recordNodeProvider.stopRecord(recordNode));

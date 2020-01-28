@@ -15,7 +15,7 @@
     "noEmit": true,
     "jsx": "preserve",
     "sourceMap": true,
-    "rootDir": "src",
+    "rootDirs": ["src", "ext-src"],
     "outDir": "build"
   },
   "include": ["src", "ext-src/cloudbuild"]
