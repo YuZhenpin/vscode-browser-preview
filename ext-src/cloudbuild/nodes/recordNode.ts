@@ -4,10 +4,12 @@ import * as path from 'path';
 import { RestClient } from '../restClient';
 import { ProjectModel } from '../models/projectModel';
 import { RecordModel } from '../models/recordModel';
+import { BrowserViewWindow } from '../../BrowserViewWindow';
 import { BrowserViewWindowManager } from '../../BrowserViewWindowManager';
 
 export class RecordNodeProvider implements vscode.TreeDataProvider<RecordNode> {
   private _projectModel: ProjectModel | undefined;
+  private _browserViewWindow: BrowserViewWindow | undefined;
   private _onDidChangeTreeData: vscode.EventEmitter<RecordNode | undefined> = new vscode.EventEmitter<
     RecordNode | undefined
   >();
@@ -53,16 +55,14 @@ export class RecordNodeProvider implements vscode.TreeDataProvider<RecordNode> {
     vscode.window.showInformationMessage('Stop a build ' + recordNode.label);
   }
 
-  showRecord(recordModel: RecordModel) {
+  async showRecord(recordModel: RecordModel): Promise<void> {
     vscode.window.showInformationMessage('Show record detail');
     //RecordPanel.createOrShow(recordModel.name);
     //var launch = vscode.commands.executeCommand(`browser-preview.openPreview`, 'https://www.baidu.com/');
-    const lastId = this.windowManager.getLastColumnNumber();
-    const win = this.windowManager.getById(lastId.toString());
-    if (win) {
-      win.launch('htts://www.baidu.com/1');
+    if (this._browserViewWindow) {
+      this._browserViewWindow.launch('htts://www.baidu.com/1');
     } else {
-      this.windowManager.create('htts://www.baidu.com/');
+      this._browserViewWindow = await this.windowManager.create('htts://www.baidu.com/');
     }
   }
 }

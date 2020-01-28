@@ -2,7 +2,7 @@
 
 import { EventEmitter } from 'events';
 import BrowserPage from './browserPage';
-import * as whichChrome from 'which-chrome';
+const whichChrome = require('which-chrome');
 import * as vscode from 'vscode';
 import * as os from 'os';
 import { ExtensionConfiguration } from './extensionConfiguration';
